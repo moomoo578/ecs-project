@@ -1,13 +1,13 @@
 FROM node:20-alpine
 
-WORKDIR /fun
-
+WORKDIR /app
 COPY package.json .
-
 RUN yarn install
 
 COPY . .
 
-EXPOSE 3000
+RUN yarn build
 
-CMD ["yarn", "start"]
+RUN yarn global add serve
+
+CMD ["serve", "-s", "build", "-l", "3000"]
